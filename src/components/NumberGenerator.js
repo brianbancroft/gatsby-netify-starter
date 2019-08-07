@@ -35,14 +35,13 @@ const NumberGenerator = () => {
   const [number, setNumber] = useState(-1)
 
   const fetchData = async () => {
-    const {
-      data: { value },
-    } = await get(uri).catch(() => {
+    const response = await get(uri).catch(() => {
       setNumber(Math.floor(Math.random() * 43))
     })
 
-    setNumber(value)
+    if (response) setNumber(response.data.value)
   }
+
   useEffect(() => {
     fetchData()
   }, [])
